@@ -1,0 +1,9 @@
+Output "./out.lua"
+
+
+Main "Display.lua"
+
+Module "modules/utils" ".\\modules/utils.lua"
+Module "modules/popup" ".\\modules/popup.lua"
+Module "modules/globals" ".\\modules/globals.lua"
+Module "modules/eventListener" ".\\modules/eventListener.lua"

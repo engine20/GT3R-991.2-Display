@@ -1,4 +1,5 @@
 local M = {}
+
 -- Blends two rgb colors
 ---@param factor number
 ---@param color1 rgbm
@@ -13,7 +14,7 @@ end
 ---@param text string
 ---@param posx number
 ---@param posy number
----@param size number 
+---@param size number
 ---@param font string
 ---@param color table
 ---@param align string
@@ -64,19 +65,19 @@ M.displayText = function(text, posx, posy, size, font, color, align)
 end
 ---Extends a string with its last character or the given character
 ---@param input string
----@param lenght integer
+---@param length integer
 ---@param char? string
 ---@return string
-M.extend = function(input, lenght, char)
+M.extend = function(input, length, char)
   local v = input
-  if lenght == 0 then
+  if length == 0 then
     return input
   else
-    for i = 1, lenght do v = v .. (char or string.sub(input, -1, -1)) end
+    for i = 1, length do v = v .. (char or string.sub(input, -1, -1)) end
   end
   return v
 end
----Forces two digits for a given number1
+---Forces two digits for a given number
 ---@param input number
 ---@return string
 M.twodigits = function(input)
@@ -85,7 +86,7 @@ end
 ---Formats a value with given parameters
 ---@param input number
 ---@param decimals integer
----@param seperator string
+---@param seperator? string
 ---@return string
 M.dec = function(input, decimals, seperator)
   return
@@ -103,7 +104,7 @@ end
 ---@param millis? integer
 ---@param nullonempty? boolean
 ---@return string
-M.timeformat = function(input, seperator, millis, nullonempty) -- same for this one
+M.timeformat = function(input, seperator, millis, nullonempty)
   return input ~= 0 and (((tonumber(string.sub(tostring(input), 1, -4)) or 0) > 59 and
            math.floor((tonumber(string.sub(tostring(input), 1, -4)) or 0) / 60) or 0) .. (seperator[1] or ':') ..
            M.twodigits((tonumber(string.sub(tostring(input), 1, -4)) or 0) -
@@ -123,13 +124,68 @@ M.shallow_copy = function(t)
   for k, v in pairs(t) do t2[k] = v end
   return t2
 end
----Robust way to get the highest index of a non sorted array
----@param list table
----@return integer
-M.getArrayLength = function(list)
-  local i = 0
-  for _ in pairs(list) do i = math.max(i, _) end
-  return i
+
+---Max value in table T
+---@param T table
+---@return number
+M.maxValueTable = function(T)
+  local max_so_far = T[1];
+  local i = 2;
+  while T[i] do
+    if T[i] > max_so_far then max_so_far = T[i]; end
+    i = i + 1;
+  end
+  return max_so_far;
+end
+
+---Min value in table T
+---@param T table
+---@return number
+M.minValueTable = function(T)
+  local min_so_far = T[1];
+  local i = 2;
+  while T[i] do
+    if T[i] < min_so_far then min_so_far = T[i]; end
+    i = i + 1;
+  end
+  return min_so_far
+end
+
+---Table to string
+---@param T table
+---@return string
+M.toStringTable = function(T)
+  local elem_str = '';
+  for i = 1, #T do elem_str = elem_str .. tostring(T[i]) .. ' '; end
+  return '[ ' .. elem_str .. ']';
+end
+
+---Table remove first element
+---@param T table
+---@return table
+M.remove1stElemTable = function(T)
+  local newT = {};
+  for i = 2, #T do newT[i - 1] = T[i]; end
+  return newT;
+end
+
+---Table add element
+---@param T table
+---@param new_elem any
+M.addElemToTable = function(T, new_elem)
+  local N = #T;
+  if N then T[N + 1] = new_elem; end
+end
+
+---Table trim
+---@param T table
+---@param N integer
+M.trimTable = function(T, N)
+  if N >= 1 then
+    T[N + 1] = nil;
+  else
+    T = {};
+  end
 end
 
 ---Interpolates between given values in a table
@@ -138,7 +194,7 @@ end
 ---@return number
 M.interpolateTable = function(value, table)
   -- cases to skip immediately
-  if value > M.getArrayLength(table) or value < 1 then return end
+  if value > #table or value < 1 then return end
   if table[value] then return table[value] end
   local lowerVal
   local higherVal
@@ -159,7 +215,7 @@ end
 
 ---If given input is a boolean, return 0 or 1, if it is a number, return the number
 ---@param value any
----@return integer
+---@return number
 M.btn = function(value)
   if not (select(1, pcall(function() return value > 1 end))) then return value and 1 or 0 end
   return value;
