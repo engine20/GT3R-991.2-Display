@@ -1,4 +1,4 @@
-local lrequire = require
+local lrequire = require -- Remove before squishing
 require = function(modname) return lrequire(_CFG.rootScriptDir .. modname) end -- Remove before squishing
 -- Import Utils
 Utils = require('modules/utils')
@@ -341,6 +341,8 @@ function update(dt)
       end
     end
   end
+
+  if car.fuel <= 5 then display.image({image = 'Display/R1_FUEL.dds', pos = vec2(0, 0), size = vec2(1024, 1024)}) end
 
   if car.fuel <= 5 then display.image({image = 'Display/R1_FUEL.dds', pos = vec2(0, 0), size = vec2(1024, 1024)}) end
 

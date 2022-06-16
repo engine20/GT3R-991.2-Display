@@ -4,15 +4,13 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Squish",
+      "label": "Build",
       "type": "shell",
       "command": "cmd",
-      "args": [
-        "/c lua51 squish --minify-level=full --uglify --uglify-level=full && del /F /Q out.lua && ren out.lua.uglified Display_sq.lua"
-      ],
+      "args": ["/c build.cmd"],
       "problemMatcher": [],
       "options": {
-        "cwd": "${workspaceFolder}\\Display"
+        "cwd": "${workspaceFolder}"
       },
       "group": {
         "kind": "build",

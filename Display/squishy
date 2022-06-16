@@ -1,7 +1,7 @@
 Output "./out.lua"
 
 
-Main "Display.lua"
+Main "Display_build.lua"
 
 Module "modules/utils" ".\\modules/utils.lua"
 Module "modules/popup" ".\\modules/popup.lua"
