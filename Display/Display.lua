@@ -48,7 +48,6 @@ eventListener:new(function() return car.extraA; end, function(diff)
     carstate.page = 1 + carstate.page;
     if carstate.page > 4 then carstate.page = 0 end
     ac.debug('page', carstate.page)
-    if not Legacy then ac.setExtraSwitch(0, false) end
   end
 end)
 
