@@ -80,35 +80,35 @@ end
 -- POPUPS --
 eventListener:new(function() return car.tractionControlMode; end, function(_, newVal)
   popup:new(3, function()
-    display.image({image = 'Display/Popup_TCR.dds', pos = vec2(0, 0), size = vec2(1024, 1024)})
+    display.image({image = 'Display/tex.zip::Popup_TCR.dds', pos = vec2(0, 0), size = vec2(1024, 1024)})
     Utils.displayText(newVal, 240, 580, 1.6, '488', {1, 1, 1}, 'center')
   end)
 end)
 
 eventListener:new(function() return car.absMode; end, function(_, newVal)
   popup:new(3, function()
-    display.image({image = 'Display/Popup_ABS.dds', pos = vec2(0, 0), size = vec2(1024, 1024)})
+    display.image({image = 'Display/tex.zip::Popup_ABS.dds', pos = vec2(0, 0), size = vec2(1024, 1024)})
     Utils.displayText(newVal, 240, 580, 1.6, '488', {1, 1, 1}, 'center')
   end)
 end)
 
 eventListener:new(function() return car.tractionControl2; end, function(_, newVal)
   popup:new(3, function()
-    display.image({image = 'Display/Popup_TCC.dds', pos = vec2(0, 0), size = vec2(1024, 1024)})
+    display.image({image = 'Display/tex.zip::Popup_TCC.dds', pos = vec2(0, 0), size = vec2(1024, 1024)})
     Utils.displayText(newVal, 240, 580, 1.6, '488', {1, 1, 1}, 'center')
   end)
 end)
 
 eventListener:new(function() return math.floor((car.brakeBias * 100 + 0.1) * 2) / 2; end, function(_, newVal)
   popup:new(3, function()
-    display.image({image = 'Display/Popup_BB.dds', pos = vec2(0, 0), size = vec2(1024, 1024)})
+    display.image({image = 'Display/tex.zip::Popup_BB.dds', pos = vec2(0, 0), size = vec2(1024, 1024)})
     Utils.displayText(Utils.dec(newVal, 2, '.'), 240, 580, 1.6, '488', {1, 1, 1}, 'center')
   end)
 end)
 
 eventListener:new(function() return car.fuelMap; end, function(_, newVal)
   popup:new(3, function()
-    display.image({image = 'Display/Popup_Map.dds', pos = vec2(0, 0), size = vec2(1024, 1024)})
+    display.image({image = 'Display/tex.zip::Popup_Map.dds', pos = vec2(0, 0), size = vec2(1024, 1024)})
     Utils.displayText(Utils.dec(newVal, 2, '.'), 240, 580, 1.6, '488', {1, 1, 1}, 'center')
   end)
 end)
@@ -141,7 +141,7 @@ function update(dt)
 
   if G.firstrun and simObject.raceSessionType == 2 then carstate.page = 4 end
   if carstate.page == 0 then
-    display.image({image = 'Display/R1N.dds', pos = vec2(0, 0), size = vec2(1024, 1024)})
+    display.image({image = 'Display/tex.zip::R1N.dds', pos = vec2(0, 0), size = vec2(1024, 1024)})
     if not car.isInPitlane then
       Utils.displayText(Utils.dec(car.oilTemperature, 2, '.'), 390, 193, 1.1, '488', {1, 1, 1}, 'right')
       Utils.displayText(Utils.dec(car.oilPressure, 2, '.'), 390, 291, 1.1, '488', {1, 1, 1}, 'right')
@@ -151,7 +151,7 @@ function update(dt)
 
     end
   elseif carstate.page == 1 then
-    display.image({image = 'Display/R2.dds', pos = vec2(0, 0), size = vec2(1024, 1024)})
+    display.image({image = 'Display/tex.zip::R2.dds', pos = vec2(0, 0), size = vec2(1024, 1024)})
     if not car.isInPitlane then
       Utils.displayText(Utils.dec(carstate.maxstintfuel - car.fuel, 2, ','), 385, 195, 1.1, '488', {1, 1, 1}, 'right');
       if Legacy then
@@ -164,7 +164,7 @@ function update(dt)
       Utils.displayText(Utils.dec(car.fuel, 2, ','), 385, 480, 1.1, '488', {1, 1, 1}, 'right');
     end
   elseif carstate.page == 2 then
-    display.image({image = 'Display/R1.dds', pos = vec2(0, 0), size = vec2(1024, 1024)})
+    display.image({image = 'Display/tex.zip::R1.dds', pos = vec2(0, 0), size = vec2(1024, 1024)})
     if not car.isInPitlane then
       Utils.displayText(math.floor(car.oilTemperature), 330, 52, 1, '488', {1, 1, 1}, 'right');
       display.rect({
@@ -245,7 +245,7 @@ function update(dt)
       spacing = -5
     })
   elseif carstate.page == 3 then
-    display.image({image = 'Display/B1.dds', pos = vec2(0, 0), size = vec2(1024, 1024)})
+    display.image({image = 'Display/tex.zip::B1.dds', pos = vec2(0, 0), size = vec2(1024, 1024)})
     if not car.isInPitlane then
       Utils.displayText(math.floor(carstate.wheels[0].discTemp), 385, 195, 1.1, '488', {1, 1, 1}, 'right');
       Utils.displayText(math.floor(carstate.wheels[1].discTemp), 385, 290, 1.1, '488', {1, 1, 1}, 'right');
@@ -259,14 +259,14 @@ function update(dt)
     Utils.displayText(Utils.dec(carstate.wheels[2].brakeForce, 1, ','), 385, 712, 1.1, '488', {1, 1, 1}, 'right');
 
   elseif carstate.page == 4 then -- QUALI
-    display.image({image = 'Display/Q1.dds', pos = vec2(0, 0), size = vec2(1024, 1024)})
+    display.image({image = 'Display/tex.zip::Q1.dds', pos = vec2(0, 0), size = vec2(1024, 1024)})
     if not car.isInPitlane then
       display.rect({
         pos = vec2(646 + 145, 362),
         size = vec2(145 * math.clampN(car.performanceMeter / 0.9, -1, 1), 193),
         color = rgb(1, 1, 1)
       })
-      display.image({image = 'Display/Overlay.dds', pos = vec2(0, 0), size = vec2(1024, 1024)})
+      display.image({image = 'Display/tex.zip::Overlay.dds', pos = vec2(0, 0), size = vec2(1024, 1024)})
       Utils.displayText(Utils.timeformat(car.estimatedLapTimeMs, {':', '.'}, 2, true), 793, 250, 1.5, '488', {1, 1, 1},
                         'center')
       Utils.displayText(Utils.timeformat(car.lapTimeMs, {':', '.'}, 2, true), 243, 268, 1.4, '488', {1, 1, 1}, 'center')
@@ -315,11 +315,11 @@ function update(dt)
 
   if car.isInPitlane then
     if (car.speedKmh < 60) then
-      display.image {image = 'Display/R1_PIT_U.dds', pos = vec2(0, 0), size = vec2(1024, 1024)}
+      display.image {image = 'Display/tex.zip::R1_PIT_U.dds', pos = vec2(0, 0), size = vec2(1024, 1024)}
     elseif (car.speedKmh > 82) then
-      display.image {image = 'Display/R1_PIT_O.dds', pos = vec2(0, 0), size = vec2(1024, 1024)}
+      display.image {image = 'Display/tex.zip::R1_PIT_O.dds', pos = vec2(0, 0), size = vec2(1024, 1024)}
     else
-      display.image {image = 'Display/R1_PIT_N.dds', pos = vec2(0, 0), size = vec2(1024, 1024)}
+      display.image {image = 'Display/tex.zip::R1_PIT_N.dds', pos = vec2(0, 0), size = vec2(1024, 1024)}
     end
     Utils.displayText((carstate.gear < 1 and (carstate.gear == 0 and 'N' or 'R') or car.gear), 790, 455, 1.5, '488',
                       {0, 0, 0}, 'center')
@@ -330,11 +330,11 @@ function update(dt)
   else
     if carstate.page ~= 2 then
       if (simObject.rainWetness > 0.1 or simObject.rainIntensity > 0.4) then
-        display.image({image = 'Display/Wet.dds', pos = vec2(0, 0), size = vec2(1024, 1024)})
+        display.image({image = 'Display/tex.zip::Wet.dds', pos = vec2(0, 0), size = vec2(1024, 1024)})
       end
       if car.headlightsActive then
         display.image({
-          image = 'Display/' .. (car.lowBeams and 'Lowbeams' or 'Highbeams') .. '.dds',
+          image = 'Display/tex.zip::' .. (car.lowBeams and 'Lowbeams' or 'Highbeams') .. '.dds',
           pos = vec2(0, 0),
           size = vec2(1024, 1024)
         })
@@ -342,9 +342,13 @@ function update(dt)
     end
   end
 
-  if car.fuel <= 5 then display.image({image = 'Display/R1_FUEL.dds', pos = vec2(0, 0), size = vec2(1024, 1024)}) end
+  if car.fuel <= 5 then
+    display.image({image = 'Display/tex.zip::R1_FUEL.dds', pos = vec2(0, 0), size = vec2(1024, 1024)})
+  end
 
-  if car.fuel <= 5 then display.image({image = 'Display/R1_FUEL.dds', pos = vec2(0, 0), size = vec2(1024, 1024)}) end
+  if car.fuel <= 5 then
+    display.image({image = 'Display/tex.zip::R1_FUEL.dds', pos = vec2(0, 0), size = vec2(1024, 1024)})
+  end
 
   if carstate.geardelay % 3 == 0 then carstate.gear = car.gear; end
   G.firstrun = false;
