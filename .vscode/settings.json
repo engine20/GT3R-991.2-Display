@@ -1,0 +1,11 @@
+{
+  "Lua.workspace.library": [
+    "E:\\Program Files (x86)\\Steam\\steamapps\\common\\assettocorsa\\extension\\internal\\lua-sdk\\ac_car_scriptable_display",
+    "e:\\Program Files (x86)\\Steam\\steamapps\\common\\assettocorsa/extension/internal/lua-sdk/ac_car_scriptable_display"
+  ],
+  "Lua.workspace.preloadFileSize": 2000,
+  "Lua.runtime.version": "LuaJIT",
+  "Lua.runtime.builtin": {},
+  "vscode-lua-format.configPath": "E:\\Program Files (x86)\\Steam\\steamapps\\common\\assettocorsa\\content\\cars\\bm_porsche_991_gt3r_2020_display\\extension\\.vscode\\.luaformat",
+  "Lua.diagnostics.globals": ["_CFG"]
+}
