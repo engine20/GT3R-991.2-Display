@@ -346,10 +346,6 @@ function update(dt)
     display.image({image = 'Display/tex.zip::R1_FUEL.dds', pos = vec2(0, 0), size = vec2(1024, 1024)})
   end
 
-  if car.fuel <= 5 then
-    display.image({image = 'Display/tex.zip::R1_FUEL.dds', pos = vec2(0, 0), size = vec2(1024, 1024)})
-  end
-
   if carstate.geardelay % 3 == 0 then carstate.gear = car.gear; end
   G.firstrun = false;
 end
