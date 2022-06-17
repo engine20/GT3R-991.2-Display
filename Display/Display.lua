@@ -59,10 +59,12 @@ eventListener:new(function() return car.fuel; end, function(diff)
   end)
 end)
 
-eventListener:new(function() return car.gear; end, function()
-  carstate.gear = 0;
-  carstate.geardelay = carstate.geardelay - (carstate.geardelay % 3);
-end)
+if _CFG.flashNatshift then
+  eventListener:new(function() return car.gear; end, function()
+    carstate.gear = 0;
+    carstate.geardelay = carstate.geardelay - (carstate.geardelay % 3);
+  end)
+end
 
 eventListener:new(function() return simObject.raceSessionType; end, function(_, newVal)
   if (newVal == 2) then
@@ -118,7 +120,7 @@ function update(dt)
   eventListener:update();
   G.time = G.time + dt;
   G.run = G.run + 1;
-  carstate.geardelay = carstate.geardelay + 1;
+  if _CFG.flashNatshift then carstate.geardelay = carstate.geardelay + 1; end
   simObject = Legacy and ac.getSimState() or ac.getSim();
   ac.debug('simTime', G.time);
   ac.debug('run', G.run);
@@ -306,6 +308,7 @@ function update(dt)
     Utils.displayText(Utils.dec(car.wheels[1].tyrePressure * 0.069, 2, ','), 610, 660, 1.15, '488', {1, 1, 1}, 'right');
     Utils.displayText(Utils.dec(car.wheels[3].tyrePressure * 0.069, 2, ','), 610, 743, 1.15, '488', {1, 1, 1}, 'right');
   end
+  if not _CFG.flashNatshift then carstate.gear = car.gear; end
   Utils.displayText((carstate.gear < 1 and (carstate.gear == 0 and 'N' or 'R') or car.gear), 515, 225, 5, '488',
                     {1, 1, 0.1}, 'center')
 
@@ -321,6 +324,7 @@ function update(dt)
     else
       display.image {image = 'Display/tex.zip::R1_PIT_N.dds', pos = vec2(0, 0), size = vec2(1024, 1024)}
     end
+    if not _CFG.flashNatshift then carstate.gear = car.gear; end
     Utils.displayText((carstate.gear < 1 and (carstate.gear == 0 and 'N' or 'R') or car.gear), 790, 455, 1.5, '488',
                       {0, 0, 0}, 'center')
     Utils.displayText(math.floor(car.gas * 100), 790, 275, 1.5, '488', {0, 0, 0}, 'center')
@@ -346,6 +350,7 @@ function update(dt)
     display.image({image = 'Display/tex.zip::R1_FUEL.dds', pos = vec2(0, 0), size = vec2(1024, 1024)})
   end
 
-  if carstate.geardelay % 3 == 0 then carstate.gear = car.gear; end
+  if _CFG.flashNatshift then if carstate.geardelay % 3 == 0 then carstate.gear = car.gear; end end
+
   G.firstrun = false;
 end
