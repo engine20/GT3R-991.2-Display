@@ -145,25 +145,25 @@ function update(dt)
   if carstate.page == 0 then
     display.image({image = 'Display/tex.zip::R1N.dds', pos = vec2(0, 0), size = vec2(1024, 1024)})
     if not car.isInPitlane then
-      Utils.displayText(Utils.dec(car.oilTemperature, 2, '.'), 390, 193, 1.1, '488', {1, 1, 1}, 'right')
-      Utils.displayText(Utils.dec(car.oilPressure, 2, '.'), 390, 291, 1.1, '488', {1, 1, 1}, 'right')
-      Utils.displayText(Utils.dec(car.waterTemperature, 2, ','), 390, 390, 1.1, '488', {1, 1, 1}, 'right')
-      Utils.displayText(Utils.dec((car.waterTemperature - 20) ^ 0.3 * car.oilPressure / 5, 2, '.'), 390, 479, 1.1,
-                        '488', {1, 1, 1}, 'right') -- Water Pressure
+      Utils.displayText(Utils.dec(car.oilTemperature, 1, '.'), 328, 193, 1.1, '488', {1, 1, 1}, 'center')
+      Utils.displayText(Utils.dec(car.oilPressure, 1, '.'), 328, 291, 1.1, '488', {1, 1, 1}, 'center')
+      Utils.displayText(Utils.dec(car.waterTemperature, 1, '.'), 328, 390, 1.1, '488', {1, 1, 1}, 'center')
+      Utils.displayText(Utils.dec((car.waterTemperature - 20) ^ 0.3 * car.oilPressure / 5, 1, '.'), 328, 479, 1.1,
+                        '488', {1, 1, 1}, 'center') -- Water Pressure
 
     end
   elseif carstate.page == 1 then
     display.image({image = 'Display/tex.zip::R2.dds', pos = vec2(0, 0), size = vec2(1024, 1024)})
     if not car.isInPitlane then
-      Utils.displayText(Utils.dec(carstate.maxstintfuel - car.fuel, 2, ','), 385, 195, 1.1, '488', {1, 1, 1}, 'right');
+      Utils.displayText(Utils.dec(carstate.maxstintfuel - car.fuel, 1, '.'), 328, 195, 1.1, '488', {1, 1, 1}, 'center');
       if Legacy then
-        Utils.displayText(Utils.dec(carstate.fuelPerLap, 2, ','), 385, 290, 1.1, '488', {1, 1, 1}, 'right');
+        Utils.displayText(Utils.dec(carstate.fuelPerLap, 2, '.'), 328, 290, 1.1, '488', {1, 1, 1}, 'center');
       else
-        Utils.displayText(car.fuelPerLap and Utils.dec(car.fuelPerLap, 2, ',') or '0.00', 385, 290, 1.1, '488',
-                          {1, 1, 1}, 'right');
+        Utils.displayText(car.fuelPerLap and Utils.dec(car.fuelPerLap, 2, '.') or '0.00', 328, 290, 1.1, '488',
+                          {1, 1, 1}, 'center');
       end
-      Utils.displayText('80.00', 385, 385, 1.1, '488', {1, 1, 1}, 'right');
-      Utils.displayText(Utils.dec(car.fuel, 2, ','), 385, 480, 1.1, '488', {1, 1, 1}, 'right');
+      Utils.displayText('80.00', 328, 385, 1.1, '488', {1, 1, 1}, 'center');
+      Utils.displayText(Utils.dec(car.fuel, 1, '.'), 328, 480, 1.1, '488', {1, 1, 1}, 'center');
     end
   elseif carstate.page == 2 then
     display.image({image = 'Display/tex.zip::R1.dds', pos = vec2(0, 0), size = vec2(1024, 1024)})
@@ -253,12 +253,12 @@ function update(dt)
       Utils.displayText(math.floor(carstate.wheels[1].discTemp), 385, 290, 1.1, '488', {1, 1, 1}, 'right');
       Utils.displayText(math.floor(carstate.wheels[2].discTemp), 385, 385, 1.1, '488', {1, 1, 1}, 'right');
       Utils.displayText(math.floor(carstate.wheels[3].discTemp), 385, 480, 1.1, '488', {1, 1, 1}, 'right');
-      Utils.displayText(Utils.dec(math.floor((car.brakeBias * 100 + 0.1) * 2) / 2, 2, ','), 650, 470, 1.2, '488',
+      Utils.displayText(Utils.dec(math.floor((car.brakeBias * 100 + 0.1) * 2) / 2, 2, ','), 650, 482, 1.2, '488',
                         {1, 1, 1}, 'left')
-      Utils.displayText('100.0', 930, 470, 1.2, '488', {1, 1, 1}, 'right')
+      Utils.displayText('100.0', 930, 482, 1.2, '488', {1, 1, 1}, 'right')
     end
-    Utils.displayText(Utils.dec(carstate.wheels[0].brakeForce, 1, ','), 385, 610, 1.1, '488', {1, 1, 1}, 'right');
-    Utils.displayText(Utils.dec(carstate.wheels[2].brakeForce, 1, ','), 385, 712, 1.1, '488', {1, 1, 1}, 'right');
+    Utils.displayText(Utils.dec(carstate.wheels[0].brakeForce, 1, '.'), 385, 610, 1.1, '488', {1, 1, 1}, 'right');
+    Utils.displayText(Utils.dec(carstate.wheels[2].brakeForce, 1, '.'), 385, 712, 1.1, '488', {1, 1, 1}, 'right');
 
   elseif carstate.page == 4 then -- QUALI
     display.image({image = 'Display/tex.zip::Q1.dds', pos = vec2(0, 0), size = vec2(1024, 1024)})
@@ -279,17 +279,27 @@ function update(dt)
     if not (carstate.page == 4) then
       if not (carstate.page == 3) then
         if not (car.isInPitlane) then
-          local gainorloss = math.clampN(car.performanceMeter * INF, -1, 1)
-          Utils.displayText((car.performanceMeter >= 0 and '+ ' or '- ') ..
-                              Utils.dec(math.abs(math.clampN(car.performanceMeter, -99, 99)), 2, '.'), 635, 470, 1.2,
-                            '488', {
-            Utils.interpolateTable(gainorloss + 2, {0.3, 1, 1}), Utils.interpolateTable(gainorloss + 2, {1, 1, 0.3}),
-            Utils.interpolateTable(gainorloss + 2, {0.3, 1, 0.1})
-          }, 'left')
-          Utils.displayText(Utils.timeformat(car.estimatedLapTimeMs, {':', '.'}, 2, true), 950, 470, 1.2, '488', {
-            Utils.interpolateTable(gainorloss + 2, {0.3, 1, 1}), Utils.interpolateTable(gainorloss + 2, {1, 1, 0.3}),
-            Utils.interpolateTable(gainorloss + 2, {0.3, 1, 0.1})
-          }, 'right')
+          if car.performanceMeter < 0 then
+            display.image({
+              image = 'Display/tex.zip::Diff.dds',
+              pos = vec2(0, 0),
+              size = vec2(1024, 1024),
+              color = rgb(0.2, 1, 0.2)
+            })
+          end
+          if car.performanceMeter > 0 then
+            display.image({
+              image = 'Display/tex.zip::Diff.dds',
+              pos = vec2(0, 0),
+              size = vec2(1024, 1024),
+              color = rgb(1, 0.2, 0.2)
+            })
+          end
+          Utils.displayText((car.performanceMeter == 0 and '  ' or (car.performanceMeter >= 0 and '+ ' or '- ')) ..
+                              Utils.dec(math.abs(math.clampN(car.performanceMeter, -99, 99)), 2, '.'), 635, 482, 1.2,
+                            '488', {1, 1, 1}, 'left')
+          Utils.displayText(Utils.timeformat(car.estimatedLapTimeMs, {':', '.'}, 2, true), 955, 482, 1.2, '488',
+                            {1, 1, 1}, 'right')
         end
       end
       if not car.isInPitlane then
@@ -303,10 +313,10 @@ function update(dt)
     Utils.displayText(car.tractionControlMode, 869, 892, 0.8, '488', {1, 1, 1}, 'center');
     Utils.displayText(car.tractionControl2, 732, 892, 0.8, '488', {1, 1, 1}, 'center');
 
-    Utils.displayText(Utils.dec(car.wheels[0].tyrePressure * 0.069, 2, ','), 414, 660, 1.15, '488', {1, 1, 1}, 'left');
-    Utils.displayText(Utils.dec(car.wheels[2].tyrePressure * 0.069, 2, ','), 414, 743, 1.15, '488', {1, 1, 1}, 'left');
-    Utils.displayText(Utils.dec(car.wheels[1].tyrePressure * 0.069, 2, ','), 610, 660, 1.15, '488', {1, 1, 1}, 'right');
-    Utils.displayText(Utils.dec(car.wheels[3].tyrePressure * 0.069, 2, ','), 610, 743, 1.15, '488', {1, 1, 1}, 'right');
+    Utils.displayText(Utils.dec(car.wheels[0].tyrePressure * 0.069, 2, ','), 424, 670, 1, '488', {1, 1, 1}, 'left');
+    Utils.displayText(Utils.dec(car.wheels[2].tyrePressure * 0.069, 2, ','), 424, 743, 1, '488', {1, 1, 1}, 'left');
+    Utils.displayText(Utils.dec(car.wheels[1].tyrePressure * 0.069, 2, ','), 600, 670, 1, '488', {1, 1, 1}, 'right');
+    Utils.displayText(Utils.dec(car.wheels[3].tyrePressure * 0.069, 2, ','), 600, 743, 1, '488', {1, 1, 1}, 'right');
   end
   if not _CFG.flashNatshift then carstate.gear = car.gear; end
   Utils.displayText((carstate.gear < 1 and (carstate.gear == 0 and 'N' or 'R') or car.gear), 515, 225, 5, '488',
