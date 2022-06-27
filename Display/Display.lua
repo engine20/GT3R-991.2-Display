@@ -10,6 +10,7 @@ local eventListener = require('modules/eventListener')
 INF = 1e308
 Legacy = ac.getPatchVersionCode() <= 1709
 if Legacy then ac.log('Running Legacy Mode!') end
+---@diagnostic disable-next-line: deprecated
 local simObject = Legacy and ac.getSimState() or ac.getSim();
 local wheelstate = {discTemp = 0, brakeForce = 0}
 local carstate = {
@@ -26,11 +27,8 @@ ac.debug('page', carstate.page)
 ac.debug('Popups', 0)
 
 math.randomseed(os.time())
-math.random()
-math.random()
-math.random()
-math.random()
-math.random()
+---@diagnostic disable-next-line: discard-returns
+for i = 1, 4 do math.random() end
 
 local function calculateBrakeTemps(index, dt)
   carstate.wheels[index].discTemp = carstate.wheels[index].discTemp +
@@ -116,11 +114,13 @@ eventListener:new(function() return car.fuelMap; end, function(_, newVal)
 end)
 --
 
+---@diagnostic disable-next-line: lowercase-global
 function update(dt)
   eventListener:update();
   G.time = G.time + dt;
   G.run = G.run + 1;
   if _CFG.flashNatshift then carstate.geardelay = carstate.geardelay + 1; end
+  ---@diagnostic disable-next-line: deprecated
   simObject = Legacy and ac.getSimState() or ac.getSim();
   ac.debug('simTime', G.time);
   ac.debug('run', G.run);
