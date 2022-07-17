@@ -8,5 +8,9 @@
   "Lua.runtime.builtin": {},
   "vscode-lua-format.configPath": "E:\\AC Modding\\WiP Cars\\.src\\Display\\991.2\\GT3R-991.2-Display\\.vscode\\.luaformat",
   "Lua.diagnostics.globals": ["_CFG"],
-  "Lua.diagnostics.disable": ["undefined-doc-name"]
+  "Lua.diagnostics.disable": [
+    "undefined-doc-name",
+    "param-type-mismatch",
+    "assign-type-mismatch"
+  ]
 }

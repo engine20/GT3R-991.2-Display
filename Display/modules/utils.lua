@@ -194,6 +194,7 @@ end
 ---@return number
 M.interpolateTable = function(value, table)
   -- cases to skip immediately
+  ---@diagnostic disable-next-line: missing-return-value
   if value > #table or value < 1 then return end
   if table[value] then return table[value] end
   local lowerVal
